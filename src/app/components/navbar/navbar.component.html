@@ -14,7 +14,7 @@
         
         <div class="col">
          
-          <div ngbDropdown class="d-inline-block" *ngIf="c()">
+          <div ngbDropdown class="d-inline-block" >
             
             <button class="btn " id="dropdownBasic1" ngbDropdownToggle style="background-color: #FF3636; border-radius: 20px; "><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>{{n}} {{p}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -24,7 +24,7 @@
                 Profile
               </a>
               <a ngbDropdownItem href="#"  >
-                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" (click)="logout()" ></i>
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" ((click)="logout()" ></i>
                logout
               </a>
 

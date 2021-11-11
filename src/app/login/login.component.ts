@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     });
     this.user= new User();
     this.getUsers();
+    localStorage.clear();
   }
   
   getUsers()
@@ -54,34 +55,15 @@ for(let us of this.users)
  { 
 this.b=true;
 this.h = us ;
-
+localStorage.setItem("role",JSON.stringify(this.h.role));
 localStorage.setItem("nom",JSON.stringify(this.h.firstName));
 localStorage.setItem("prenom",JSON.stringify(this.h.lastName));
-localStorage.setItem("email",JSON.stringify(this.h.email));
-localStorage.setItem("role",JSON.stringify(this.h.role));
-localStorage.setItem("user",JSON.stringify(this.h))
-localStorage.setItem("name","user");
+localStorage.setItem("user",JSON.stringify(this.h));
+localStorage.setItem("name","name");
+sessionStorage.setItem("n","name");
+window.location.replace("table-list") 
 
  }
-
 }
-    if((!this.b)||(JSON.parse(localStorage.getItem('role'))!='admin'))
-    {
-      alert("compte non reconnu!");
-      window.location.replace("login")
-    }
- 
-    else {
-      if(JSON.parse(localStorage.getItem('role'))=='admin')
-    {
-      localStorage.removeItem("admin")
-   window.location.replace("user-profile") 
-
-
-  }
-
-    }
-  }
-
-
+}
 }

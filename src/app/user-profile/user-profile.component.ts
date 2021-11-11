@@ -9,7 +9,7 @@ import { MustMatch } from '../_helpers/must-match.validator';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  registerForm: FormGroup;
+  modifierForm: FormGroup;
   submitted = false;
   users = {} as any ;
   phone : string;
@@ -33,7 +33,7 @@ export class UserProfileComponent implements OnInit {
     this.email = this.users.email;
     this.password = this.users.password;
     this.confirmPassword = this.users.password;
-    this.registerForm = this.formBuilder.group({
+    this.modifierForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       phone: ['', Validators.required],
@@ -50,7 +50,7 @@ this.admin = localStorage.getItem("admin");
 this.n=JSON.parse(localStorage.getItem('nom'));
 this.p=JSON.parse(localStorage.getItem('prenom'));
   }
-  get f() { return this.registerForm.controls; }
+  get f() { return this.modifierForm.controls; }
 
 onSubmit() {
   
@@ -65,10 +65,13 @@ onSubmit() {
     this.userService.updateUser(this.users).subscribe();
     alert('SUCCESS!!');
     localStorage.setItem("user", JSON.stringify(this.users));
+    localStorage.setItem("nom", JSON.stringify(this.users.firstName));
+    localStorage.setItem("prenom", JSON.stringify(this.users.lastName));
+    location.reload();
     // stop here if form is invalid
-   // if (this.modifierForm.invalid) {
-        //return;
-    //}else {
+   if (this.modifierForm.invalid) {
+        return;
+    }else {
       this.firstName = '';
       this.lastName = '';
       this.email = '';
@@ -80,13 +83,13 @@ onSubmit() {
       alert('SUCCESS!!');
      
     
-    
+    }  
    
 
 }
   onReset() {
       this.submitted = false;
-      this.registerForm.reset();
+      this.modifierForm.reset();
   }
 }
 

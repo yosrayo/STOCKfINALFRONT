@@ -12,6 +12,7 @@ export class ListUserComponent implements OnInit {
   list = {} as any ;
   user:User;
   name :  string;
+  fil :string;
   constructor(private userService:UserService,  private httpClient: HttpClient) { }
 
   ngOnInit() {
@@ -25,9 +26,19 @@ export class ListUserComponent implements OnInit {
   }
   searche(){
     if (this.name != ""){
+      if(this.fil=="First name"){
       this.list = this.list.filter(res=>{
         return res.firstName.toLocaleLowerCase().match(this.name.toLocaleLowerCase());
       });
+    }else if (this.fil=="Last name"){
+      this.list = this.list.filter(res=>{
+        return res.lastName.toLocaleLowerCase().match(this.name.toLocaleLowerCase());
+      });
+    } else if (this.fil=="Address"){
+      this.list = this.list.filter(res=>{
+        return res.address.toLocaleLowerCase().match(this.name.toLocaleLowerCase());
+      });
+    } 
     }else if(this.name==""){
       this.ngOnInit();
     }

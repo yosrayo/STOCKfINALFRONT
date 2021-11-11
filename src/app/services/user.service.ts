@@ -27,8 +27,9 @@ export class UserService {
       return of(result as T);
     };
   }
-  private UsersUrl = 'http://localhost:8097/api';
+  private UsersUrl = 'http://localhost:8098/api';
   constructor(private http: HttpClient) { }
+  
   getUsers (): Observable<User[]> {
     return this.http.get<User[]>(this.UsersUrl +'/user').pipe(
       tap(_ => console.log('fetched Users')),
@@ -37,24 +38,18 @@ export class UserService {
   }
 
   create(user: User): Observable<any> {
-    return this.http.post<User>(this.UsersUrl+'u', user, httpOptions).pipe(
+    return this.http.post<User>(this.UsersUrl+'/u', user, httpOptions).pipe(
       tap((newUser: User) => console.log(`added user w/ id=${newUser.idUser}`)),
       catchError(this.handleError<User>('create'))
-    );
-  }
-  delete(user: User | number): Observable<User> {
-    const id = typeof user === 'number' ? user : user.idUser;
-    const url = `${this.UsersUrl}/${id}`;
-
-    return this.http.delete<User>(url, httpOptions).pipe(
-      tap(_ => console.log(`deleted User id=${id}`)),
-      catchError(this.handleError<User>('delete'))
     );
   }
 
   deleteUser(_id: string) {
     return this.http.delete(this.UsersUrl + '/user'+ `/${_id}`);
   }
+
+
+  
   updateUser(emp) {
     return this.http.put(this.UsersUrl + '/users' + `/${emp.idUser}`, emp);
   }

@@ -19,7 +19,7 @@ export class AdminGuard implements CanActivate {
             // this will be passed from the route config
             // on the data property
 
-            if (JSON.parse(localStorage.getItem('role')) == 'admin') {
+            if (JSON.parse(localStorage.getItem("role")) === 'admin') {
               return true;
             } else {
               this.router.navigate(['/login']);

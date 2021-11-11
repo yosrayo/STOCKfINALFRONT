@@ -1,7 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ROUTES } from '../sidebar/sidebar.component';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
-import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -18,19 +16,15 @@ p:string;
     ngOnInit(){
       this.n=JSON.parse(localStorage.getItem('nom'));
       this.p=JSON.parse(localStorage.getItem('prenom')); 
+      
     }
 
    
-    c() {
-      if(localStorage.getItem('name') === '') {
-        return false;
-      } else {
-        return true;
-      }
-    }
     logout() {
+      localStorage.removeItem(this.n);
       window.location.replace("login");
-      localStorage.setItem("name","")
+      sessionStorage.clear();
+  
     }
   
    

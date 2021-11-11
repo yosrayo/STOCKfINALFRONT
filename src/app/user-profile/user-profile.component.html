@@ -7,7 +7,7 @@
           <h5 class="title">Edit Profile</h5>
         </div>
         <div class="card-body">
-          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <form [formGroup]="modifierForm" (ngSubmit)="onSubmit()">
             <div class="row">
               <div class="col-md-4 pr-1">
                 <div class="form-group">
@@ -57,6 +57,7 @@
                     <div *ngIf="f.email.errors.required">Email is required</div>
                     <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
                 </div>
+                
                 </div>
               </div>
             </div>

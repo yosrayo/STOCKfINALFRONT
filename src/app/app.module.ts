@@ -13,10 +13,11 @@ import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+
+
 
 
 
@@ -53,11 +54,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    SignUpComponent,
-    
    
-  
-
+   
   ],
   providers: [],
   bootstrap: [AppComponent]

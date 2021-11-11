@@ -36,7 +36,7 @@
                     <td class="td-actions text-right">
                       <button type="button" rel="tooltip" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
                         aria-controls="offcanvasBottom" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                        <i class="material-icons" (click)="open(content)">edit</i>
+                        <i class="material-icons" (click)=" onEdit(m , content)">edit</i>
                         
                       </button>
 
@@ -92,7 +92,7 @@
                           <input type="file" c formControlName="logo" (change)="onFileSelected($event)"  />
                           
                           <hr>
-                          <button class="btn  btn-user btn-block" (click)=" onSubmit2()"  >
+                          <button class="btn  btn-user btn-block" (click)="update()"  >
                             update company
                           </button>
                         </form>

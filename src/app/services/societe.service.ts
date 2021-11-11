@@ -27,8 +27,10 @@ export class SocieteService {
       return of(result as T);
     };
   }
-  private SocietesUrl = 'http://localhost:8097/api';
+  private SocietesUrl = 'http://localhost:8098/api';
   constructor(private http: HttpClient) { }
+ 
+ 
   getSocietes (): Observable<Societe[]> {
     return this.http.get<Societe[]>(this.SocietesUrl +'/s').pipe(
       tap(_ => console.log('fetched Societe')),
@@ -43,15 +45,7 @@ export class SocieteService {
       catchError(this.handleError<Societe>('create'))
     );
   }
-  delete(societe: Societe | number): Observable<Societe> {
-    const id = typeof societe === 'number' ? societe : societe.idd;
-    const url = `${this.SocietesUrl}/${id}`;
-
-    return this.http.delete<Societe>(url, httpOptions).pipe(
-      tap(_ => console.log(`deleted Societe id=${id}`)),
-      catchError(this.handleError<Societe>('delete'))
-    );
-  }
+  
 
   deleteSociete(_id: string) {
     return this.http.delete(this.SocietesUrl +'/societes' +  `/${_id}`);

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SocieteService } from '../services/societe.service';
 import { Societe } from '../classes/societe';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -7,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { map, finalize } from 'rxjs/operators';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SocieteService } from '../services/societe.service';
 
 
 @Component({
@@ -41,12 +41,6 @@ export class TableListComponent implements OnInit {
       private storage: AngularFireStorage , private httpClient: HttpClient,
       config: NgbModalConfig, private modalService: NgbModal ) { }
 
-      
-
-
-     
-
-
   ngOnInit() {
     this.societeService .getSocietes().subscribe((res) => {
       this.list = res;
@@ -54,6 +48,8 @@ export class TableListComponent implements OnInit {
       console.log("societe",this.list);
       this.societe=new Societe();
     });
+    this.h=new Societe();
+
     this.ajoutForm = this.formBuilder.group({
       nom: ['', Validators.required],
       logo: ['', Validators.required],
@@ -63,22 +59,33 @@ export class TableListComponent implements OnInit {
   })
       
   }
+ 
   get f() { return this.ajoutForm.controls; }
   
   update() {
     console.log(this.filePath)
     this.storage.upload('/images'+this.filePath, this.filePath);
     console.log("idP",this.h.idd)
-    this.soci.symbole=this.symbole;
-    this.soci.nom = this.nom; 
-    this.soci.logo = this.fb;
-    this.societeService.updateSociete(this.soci).subscribe((res) => {
-     
+    this.h.symbole=this.symbole;
+    this.h.nom = this.nom; 
+    this.h.logo = this.fb;
+    this.societeService.updateSociete(this.h).subscribe((res) => {
+      alert("ajouter avec succés");
    window.location.replace("table-list")
     });
   }
 
+  onEdit(emp, content) {
+    this.modalService.open(content);
+    console.log(emp);
+    this.h.idd=emp.idd;
+    this.nom = emp.nom; 
+    this.symbole= emp.symbole;
+    this.fb = emp.logo;
+    this.symbole = emp.symble;
+   
 
+  }
 
 
   onDelete(_id: string) {
@@ -89,38 +96,7 @@ export class TableListComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    
-    console.log(this.filePath)
-    this.storage.upload('/images'+this.filePath, this.filePath);
-
-    this.submitted = true;
-    this.exist=false;
-    // stop here if form is invalid
-   // if (this.ajoutForm.invalid) {
-       // return;
-   // }else {
-      
-      this.societe.logo=this.fb
-      
-      for(let us of this.list){
-        if(this.societe.symbole==us.symbole){
-          alert("produit existe déjà");
-           this.exist=true;
-          }
-        }
-        if(this.exist===false){
-          this.societeService.create(this.societe as Societe).subscribe(societe=>{this.societes.push(societe)});
-alert("ajouter avec succés");
-     
-      this.logo= '';
-      
-    console.log(this.ajoutForm.value);
-    window.location.replace("table-list");
-    
-//  }
-}
-  }
+ 
   
   onFileSelected(event) {
     var n = Date.now();
@@ -153,22 +129,12 @@ alert("ajouter avec succés");
 
   open(content) {
     this.modalService.open(content);
-  }
+    
+  
+}
  
 
-
-
-  upload(event) {    
-    this.filePath = event.target.files[0]
-  }
-  uploadImage(){
-    console.log(this.filePath)
-    this.storage.upload('/images'+Math.random()+this.filePath, this.filePath);
-    
-      
-  }
-
-
+//recherche societes
   searche(){
     if (this.nomSoci != ""){
       this.list = this.list.filter(res=>{
@@ -183,32 +149,7 @@ alert("ajouter avec succés");
 
 
 
-  onSubmit2() {
-    console.log(this.filePath)
-    this.storage.upload('/images'+this.filePath, this.filePath);
-    this.users.nom=this.nom;
-    this.users.symbole = this.symbole ;
-    this.users.logo=this.fb ;
-  
-    
-      this.submitted = true
-      this.societeService.updateSociete(this.users).subscribe();
-      alert('SUCCESS!!');
-      localStorage.setItem("user", JSON.stringify(this.users));
-      // stop here if form is invalid
-     // if (this.modifierForm.invalid) {
-          //return;
-      //}else {
-        this.nom = '';
-        this.symbole = '';
-        this.logo = '';
-       
-       
-        alert('SUCCESS!!');
-       
-      
-      
-     
-  
-  }
+
 }
+
+
